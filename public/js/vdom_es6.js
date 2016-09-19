@@ -151,7 +151,7 @@ const reRenderElem =  (node, group, parent) => {
            }
 
            
-                   node.props = node.props ? node.props : {};
+           node.props = node.props ? node.props : {};
            node.props.parent = parent; 
            node.props.trace = group;
    

@@ -6,7 +6,7 @@
   "main": "start.js",
   "scripts": {
     "start": "node --use_strict start.js",
-    "build": "node browserify.js webpack --progress --colors",
+    "build": "node browserify.js",
     "buildstart": "node browserify.js webpack --progress --colors node --use_strict start.js"
   },
   "author": "Pete",

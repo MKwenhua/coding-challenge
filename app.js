@@ -40,7 +40,6 @@ app.get('/', (req, res) => {
 
 app.get('/parse', (req, res) => {
   res.send("yo");
-  //theParse.parseSite()
 });
 app.get('/health', (req, res) => {
 
