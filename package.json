@@ -1,0 +1,56 @@
+{
+  "name": "openshift-cartridge-nodejs-template",
+  "version": "1.0.1",
+  "description": "Coding Challenge for a company",
+  "private": true,
+  "main": "start.js",
+  "scripts": {
+    "start": "node --use_strict start.js",
+    "build": "node browserify.js webpack --progress --colors",
+    "buildstart": "node browserify.js webpack --progress --colors node --use_strict start.js"
+  },
+  "author": "Pete",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      [
+        "jsx-transform/browserify",
+        {
+          "factory": "EX.node"
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bootstrap-grid": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "redis": "^2.6.2",
+    "socket.io": "^1.4.8",
+    "socket.io-redis": "^1.0.0",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "eslint": "^3.5.0",
+    "eslint-loader": "^1.5.0",
+    "expect": "^1.20.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.12",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-strip-css-comments": "^1.2.0",
+    "istanbul": "^0.3.17",
+    "mocha": "^3.0.2",
+    "run-sequence": "^1.2.2"
+  }
+}
