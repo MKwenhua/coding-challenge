@@ -3,42 +3,68 @@ const theXHRstuff = require('./xhrRequests.js');
 const EX = require("./vdom_es6");
 const Yo = require("./components/list.js");
 var whenItArrives = (res) => {
-	console.log('成龍大哥');
-	 console.log('api responose',res);
+   console.log('成龍大哥');
+   console.log('responseAholic', res);
 }
 
 let appSet = {
-  state: {
-  	yoArray: [{u:'爆拉肚子', say:"say thing 1"} ,{u: 344, say:"say thing 2"} ],
-  	bool: 1
-  },
-  render: () => {
-  	let {yoArray,  bool} = appSet.state;
-  	let theclass = bool ? "ok-cool" : "bold-yikes";
-   /* let heyaRARY = (arr) => {arr.map((itm) => {
-  		return <Yo u={itm.u} say={itm.say} />
-  		})
-	};*/
-  	//console.log('heyaRARY', heyaRARY)
-  	return (
-  	<div>
-    	<h2 class={theclass}>Headline something</h2>
-		<Yo u={333} say="ok" />
-		
-	</div>
-  		)
-  }
+   state: {
+      anArray: [{
+         u: '爆拉肚子',
+         say: "Angular"
+      }, {
+         u: 344,
+         say: "React"
+      }, {
+         u: 555,
+         say: "Vue"
+      }],
+      something: "A sentence something",
+      bool: 1
+   },
+   render: () => {
+      let {
+         anArray,
+         something,
+         bool
+      } = appSet.state;
+      let theclass = bool ? "ok-cool" : "bold-yikes";
+      let heyaRARY = anArray.map((itm) => {
+         return <Yo u={itm.u} say={itm.say} />
+      });
+      return (
+         <div>
+      <h2 class={theclass}>yo yo yo</h2>
+    {heyaRARY}
+     {something}
+  </div>
+      )
+   }
 };
 
 
-EX.createComponent( 
-    appSet.render()
-	, document.getElementById('container'));
+EX.createComponent(
+   appSet.render(), document.getElementById('container'));
 
 
 EX.viewObjects();
-var ok = {yoArray: [{u:'爆拉肚子', say:"say thing 1"} ,{u: '1999', say:"say thing 2"}, {u: 'stuff', say: 'theThird'}], bool: 0};
-appSet.state =  Object.assign({}, appSet.state, ok);
-EX.objectChange(appSet.render());
+var ok = {
+   something: "A sentence state changed",
+   anArray: [{
+      u: 'Angular',
+      say: "爆拉肚子"
+   }, {
+      u: 344,
+      say: "React Something"
+   }, {
+      u: 8292,
+      say: 'Vue Something 2'
+   }],
+   bool: 0
+};
+appSet.state = Object.assign({}, appSet.state, ok);
+
+setTimeout(function() {
+   EX.objectChange(appSet.render());
+}, 3000);
 theXHRstuff(whenItArrives);
-console.log('event list', EX.events)
