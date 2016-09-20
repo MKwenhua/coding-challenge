@@ -17,6 +17,7 @@ gulp.task('css', function () {
          'node_modules/bootstrap-grid/dist/grid.min.css',
          'public/css/body.css',
          'public/css/lists.css',
+         'public/css/loader.css',
          'public/css/buttons.css'
       ])
       .pipe(stripCssComments())
