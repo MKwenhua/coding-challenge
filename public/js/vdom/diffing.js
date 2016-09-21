@@ -1,12 +1,14 @@
 module.exports = (self, createElem) => {
+   let re = new RegExp(/^ex_/i)
+
    function removeProp(element, attr) {
-      if (!self.events[attr]) {
+      if (!self.events[attr] && !re.test(attr)) {
          element.removeAttribute(attr.replace(/[A-Z]/g, '-$&'));
       }
    }
 
    function changeProp(element, attr, val) {
-      if (!self.events[attr]) {
+      if (!self.events[attr] && !re.test(attr) || attr === 'src') {
          element.setAttribute(attr.replace(/[A-Z]/g, '-$&'), val);
       }
    }
@@ -23,9 +25,10 @@ module.exports = (self, createElem) => {
 
    function updateProps(element, newProps, oldProps = {}) {
       const props = Object.assign({}, newProps, oldProps);
-      Object.keys(props).forEach( (name) => {
+      // Object.keys(props).forEach( (name) => {
+      for (var name in props) {
          updateProp(element, name, newProps[name], oldProps[name]);
-      });
+      };
    }
 
    function changed(node1, node2) {
@@ -46,10 +49,12 @@ module.exports = (self, createElem) => {
          return
       }
       if (!oldNode) {
-         newNode.domElement = createElem(newNode, newNode.trace, newNode.parent);
+         let vdomid = parent.props.trace + '.' + index;
+         newNode.domElement = createElem(newNode, vdomid, parent.props.trace);
          parent.domElement.appendChild(
             newNode.domElement
          );
+         return
       }
       if (!newNode) {
          parent.domElement.removeChild(
@@ -57,7 +62,7 @@ module.exports = (self, createElem) => {
          );
       }
       if (changed(newNode, oldNode)) {
-         newNode.domElement = createElem(newNode, oldNode.trace, oldNode.parent);
+         newNode.domElement = createElem(newNode, newNode.trace, newNode.parent);
          parent.domElement.replaceChild(
             newNode.domElement,
             parent.domElement.childNodes[index]

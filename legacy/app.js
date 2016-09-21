@@ -11,9 +11,12 @@ const sysInfo      = require('./utils/sys-info');
 const env          = process.env;
 const socketio     = require('socket.io');
 const redis        = require('redis'); 
-
+const sio_redis    = require('socket.io-redis'); 
+const redisPW      = "";
+const sub          = redis.createClient(18071, env.RedisEndpoint ,{ return_buffers: true});
+const pub          = redis.createClient(18071, env.RedisEndpoint  ,{ return_buffers: true});
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
+//const theParse    = require('./parseHTML.js')(redis);
 
 
 
@@ -59,3 +62,41 @@ let server = app.listen(env.NODE_PORT || 8443, env.NODE_IP || 'localhost', () =>
   console.log(`Application worker ${process.pid} at  started...`);
 
 }); 
+const io = socketio(server);
+var setAdapter = (() => {
+  var num = 0;
+  return function() {
+    num += 1;
+    console.log('num', num);
+    if (num > 1) {
+      io.adapter(sio_redis({
+        pubClient: pub,
+        subClient: sub
+      }));
+    }
+  }
+})();
+
+
+sub.auth(redisPW , (err) => {
+  if (err) {
+    console.log(err)
+  };
+  setAdapter();
+  
+});
+pub.auth(redisPW , (err) => {
+  if (err) {
+    console.log(err)
+  };
+  setAdapter();
+});
+
+
+
+io.on('connection', (socket) => {
+
+
+  
+
+});

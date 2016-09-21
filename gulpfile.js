@@ -18,6 +18,7 @@ gulp.task('css', function () {
          'public/css/body.css',
          'public/css/lists.css',
          'public/css/loader.css',
+         'public/css/headline.css',
          'public/css/buttons.css'
       ])
       .pipe(stripCssComments())
@@ -30,6 +31,6 @@ gulp.task('css', function () {
 
 
 gulp.task('default', function (done) {
-		sync( 'css' ,done); 
+      sync( 'css' ,done); 
 
 });

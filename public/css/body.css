@@ -17,3 +17,6 @@ body {
 .hide-elm{
 	display: none;
 }
+#prefetchAssests{
+	display: none;
+}

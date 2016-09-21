@@ -1,5 +1,7 @@
 const events = require("./vdom/events.js");
 const setDiff = require("./vdom/diffing.js");
+const handyHelpers = require("./handy_funcs.js");
+const smoothNested = handyHelpers.smoothArray();
 
 function NodeMap(appTitle = 'default') {
    this.appTitle = appTitle;
@@ -75,7 +77,7 @@ function NodeMap(appTitle = 'default') {
    }
    this.objectChange = (newRender) => {
       let newOb = this.rerender(newRender, 'Root');
-      console.log('this.domComponents', this.domComponents);
+      // console.log('this.domComponents', this.domComponents);
       console.log('newRender', newOb);
 
 
@@ -105,13 +107,14 @@ function NodeMap(appTitle = 'default') {
    const ogcreateElementNS = Document.prototype.createElementNS;
 
    let self = this;
+   let re = new RegExp(/^ex_/i)
    Document.prototype.createElement = function createElement(name, attrs) {
       var element = ogCreateElement.call(this, String(name));
 
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!self.events[attr]) {
+         if (!self.events[attr] && !re.test(attr) || attr === 'src') {
             element.setAttribute(attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
          }
       }
@@ -123,13 +126,14 @@ function NodeMap(appTitle = 'default') {
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!self.events[attr]) {
+         if (!self.events[attr] && !re.test(attr)) {
             element.setAttributeNS('http://www.w3.org/2000/svg', attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
          }
       }
       return element;
    };
    const createElem = (node, group, parent) => {
+
       if (typeof node === 'string') {
          return document.createTextNode(node);
       }
@@ -137,9 +141,11 @@ function NodeMap(appTitle = 'default') {
       node.props.parent = parent;
       node.props.trace = group;
       Object.keys(node.props).forEach((itm, ii) => {
-         if (self.events[itm]) {
+         // for (var itm in node.props) {
+         if (self.events[itm] && itm !== 'src') {
             self.applyListener(itm);
          }
+         //};
       });
 
       const el = document.createElement(node.type, node.props);
@@ -180,12 +186,11 @@ function NodeMap(appTitle = 'default') {
    this.rerender = (node, group) => {
       return reRenderElem(node, group, 'Root');
    };
-   this.diffElements = setDiff(this, createElem);
+   this.diffElements = setDiff(self, createElem);
    this.updateElement = (oldNode, newNode) => {
       this.diffElements(this.appRootDom, newNode, oldNode);
-      console.log('this.appRootDom', this.appRootDom);
       this.domComponents = newNode;
-      console.log('this.appRootDom', this.appRootDom);
+   
    }
 
 
@@ -206,8 +211,8 @@ NodeMap.prototype.component = (obj) => {
 };
 
 
-NodeMap.prototype.node = (type, props, [...nested]) => {
-   nested = [].concat.apply([], nested)
+NodeMap.prototype.node = (type, props = {}, [...nested] = []) => {
+   nested = smoothNested(nested);
    return {
       type,
       props,
