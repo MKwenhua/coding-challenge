@@ -65,9 +65,9 @@ function NodeMap(appTitle = 'default') {
          return nest;
       }).forEach((itm, ii) => {
          if (itm) {
-            let hasClick = itm.props[eventName];
-            if (hasClick) {
-               hasClick()
+            let hasAction = itm.props[eventName];
+            if (hasAction) {
+               hasAction()
             }
          }
       })
@@ -121,7 +121,7 @@ function NodeMap(appTitle = 'default') {
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!self.events[attr] && !re.test(attr) ) {
+         if (!self.events[attr] && !re.test(attr)) {
             element.setAttributeNS('http://www.w3.org/2000/svg', attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
          }
       }
@@ -129,12 +129,13 @@ function NodeMap(appTitle = 'default') {
    };
    const createElem = (node, group, parent) => {
 
-      if (typeof node === 'string' || typeof node !== "object" ) {
+      if (typeof node === 'string' || typeof node !== "object") {
          return document.createTextNode(node);
       }
-      node.props = node.props ? node.props : {};
-      node.props.parent = parent;
-      node.props.trace = group;
+      node.props = Object.assign({}, node.props, {
+         trace: group,
+         parent: parent
+      })
       Object.keys(node.props).forEach((itm, ii) => {
          if (self.events[itm] && itm !== 'src') {
             self.applyListener(itm);
@@ -155,16 +156,15 @@ function NodeMap(appTitle = 'default') {
 
 
    const reRenderElem = (node, group, parent) => {
-
       if (typeof node === 'string' || typeof node !== "object") {
          return node;
       }
 
-
-      node.props = node.props ? node.props : {};
-      node.props.parent = parent;
-      node.props.trace = group;
       node.nested = node.nested ? node.nested : [];
+      node.props = Object.assign({}, node.props, {
+         trace: group,
+         parent: parent
+      })
       node.nested
          .map((elm, ii) => {
             let elmId = group + '.' + ii;
@@ -203,7 +203,7 @@ NodeMap.prototype.component = (obj) => {
 };
 
 
-NodeMap.prototype.node = (type, props= {} , [...nested]=[]) => {
+NodeMap.prototype.node = (type, props={}, [...nested]=[]) => {
    nested = smoothNested(nested);
    return {
       type,
