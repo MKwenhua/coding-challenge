@@ -2,7 +2,6 @@ const flatten = (a, b) => {
    return a.concat(Array.isArray(b) ? b.reduce(flatten, []) : b);
 }
 
-
 module.exports = {
    smoothArray: () => {
       return (nested) => {

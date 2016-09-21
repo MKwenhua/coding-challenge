@@ -13,8 +13,6 @@ function NodeMap(appTitle = 'default') {
    this.appRoot = null;
    this.events = events;
 
-
-
    this.createUdid = () => {
       return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4)
    };
@@ -77,10 +75,7 @@ function NodeMap(appTitle = 'default') {
    }
    this.objectChange = (newRender) => {
       let newOb = this.rerender(newRender, 'Root');
-      // console.log('this.domComponents', this.domComponents);
       console.log('newRender', newOb);
-
-
       this.updateElement(this.domComponents, newOb)
    };
    this.createComponent = (obj, containerElement) => {
@@ -126,7 +121,7 @@ function NodeMap(appTitle = 'default') {
       if (!attrs) return element;
 
       for (var attr in attrs) {
-         if (!self.events[attr] && !re.test(attr)) {
+         if (!self.events[attr] && !re.test(attr) ) {
             element.setAttributeNS('http://www.w3.org/2000/svg', attr.replace(/[A-Z]/g, '-$&'), attrs[attr]);
          }
       }
@@ -134,18 +129,16 @@ function NodeMap(appTitle = 'default') {
    };
    const createElem = (node, group, parent) => {
 
-      if (typeof node === 'string' || typeof node !== "object") {
+      if (typeof node === 'string' || typeof node !== "object" ) {
          return document.createTextNode(node);
       }
       node.props = node.props ? node.props : {};
       node.props.parent = parent;
       node.props.trace = group;
       Object.keys(node.props).forEach((itm, ii) => {
-         // for (var itm in node.props) {
          if (self.events[itm] && itm !== 'src') {
             self.applyListener(itm);
          }
-         //};
       });
 
       const el = document.createElement(node.type, node.props);
@@ -190,7 +183,6 @@ function NodeMap(appTitle = 'default') {
    this.updateElement = (oldNode, newNode) => {
       this.diffElements(this.appRootDom, newNode, oldNode);
       this.domComponents = newNode;
-   
    }
 
 
@@ -211,7 +203,7 @@ NodeMap.prototype.component = (obj) => {
 };
 
 
-NodeMap.prototype.node = (type, props = {}, [...nested] = []) => {
+NodeMap.prototype.node = (type, props= {} , [...nested]=[]) => {
    nested = smoothNested(nested);
    return {
       type,
