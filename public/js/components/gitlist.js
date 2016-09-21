@@ -10,12 +10,13 @@ const GitRepo = EX.component({
        alert(ex_framework)
     }
   	return (
-	  <li class="yikes" onClick={theFunc} >
-    <img class="li-img" src={g.owner.avatar_url}   />
-    
-    <strong>{ex_framework}</strong>
-    <span class="float-right"><i class="fa fa-star" aria-hidden="true"></i></span>
-    <span class="float-right">{g.stargazers_count}</i></span>
+    <li class="yikes" onClick={theFunc} >
+    <div class="info-block">
+      <img class="li-img" src={g.owner.avatar_url}   />
+      <strong class="fw-header" >{ex_framework}</strong>
+      <span class="float-right"><i class="fa fa-star" aria-hidden="true"></i></span>
+      <span class="float-right">{g.stargazers_count}</span>
+    </div>
     </li>
 
   	)

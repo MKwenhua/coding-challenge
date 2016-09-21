@@ -17,6 +17,9 @@ ul.boxed-list li{
 }
 .float-right{
 	float:right;
+	height: 100%;
+    padding-top: 10px;
+    margin-right: 5px;
 }
 .bold-yikes{
 	    color: red;
@@ -34,4 +37,8 @@ ul.boxed-list li{
 	vertical-align: top;
 	margin-right: 4px; 
 	
+}
+.info-block{
+	height:40px;
+	overflow: hidden;
 }

@@ -134,7 +134,7 @@ function NodeMap(appTitle = 'default') {
    };
    const createElem = (node, group, parent) => {
 
-      if (typeof node === 'string') {
+      if (typeof node === 'string' || typeof node !== "object") {
          return document.createTextNode(node);
       }
       node.props = node.props ? node.props : {};
@@ -163,7 +163,7 @@ function NodeMap(appTitle = 'default') {
 
    const reRenderElem = (node, group, parent) => {
 
-      if (typeof node === 'string') {
+      if (typeof node === 'string' || typeof node !== "object") {
          return node;
       }
 
