@@ -2,32 +2,37 @@ const EX = require("../vdom_es6");
 const moment = require('moment');
 let goBackList = () => {
 
-   EX.SetState({
-      compDisplay: "list"
-   });
+  EX.SetState({
+    compDisplay: "list"
+  });
 
 };
 
 const Details = EX.component({
-   componentName: 'details',
-   state: {},
-   componentRender: (props) => {
-      let ex_framework = props.ex_framework;
-      if (!ex_framework) {
-         return (<div class="col-xs-12">No Data</div>);
-      }
-      let g = props.ex_data.general;
+  componentName: 'details',
+  state: {},
+  componentRender: (props) => {
+    let ex_framework = props.ex_framework;
+    if (!ex_framework) {
+      return (<div class="col-xs-12">No Data</div>);
+    }
+    let g = props.ex_data.general;
 
-      return (
-         <div class="col-xs-12">
-         <div class="top-headline fw-head" >
-          {ex_framework}
-         </div>
+    return (
+      <div class="col-xs-12">
+         
           <div class="row">
-          <div class="col-xs-2">
+          <div class="col-xs-3 col-sm-2">
               <img class="details-img" src={g.owner.avatar_url}   />
           </div>
-            <div class="col-xs-8">
+           <div class="col-xs-3 col-sm-3">
+             <h2 class="fw-name" >
+                {ex_framework}
+              </h2>
+              <strong>First Commit</strong>
+              <p>{moment(g.created_at).format('LL')}</p>
+          </div>
+            <div class="col-xs-7">
               <table class="table">
                  <thead>    
               <tr>
@@ -35,7 +40,6 @@ const Details = EX.component({
                 <th>Forks</th>
                 <th>Watching</th>
                 <th>Open Issues</th>
-                <th>First Commit</th>
               </tr>
             </thead>
                 <tbody>
@@ -43,8 +47,7 @@ const Details = EX.component({
                     <td class="bold-green"> { g.subscribers_count}</td>
                      <td class="bold-green">{ g.forks}</td>
                       <td class="bold-green">{ g.watchers}</td>
-                      <td class="bold-red">{g.open_issues}</td>
-                       <td class="bold-black">{moment(g.created_at).format('LL')}</td>
+                      <td class="bold-red">{g.open_issues}</td>   
                   </tr>
                  
                 </tbody>
@@ -52,7 +55,7 @@ const Details = EX.component({
       
           </div>
       </div>
-	    
+      
      
      <div class="row hide-elm">
      
@@ -62,8 +65,8 @@ const Details = EX.component({
         <div onClick={goBackList} class="big-butt cool-button">Back to List</div>
      </div>
      </div>
-      )
-   }
+    )
+  }
 });
 
 module.exports = Details;

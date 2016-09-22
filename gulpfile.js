@@ -18,6 +18,7 @@ gulp.task('css', function () {
          'public/css/body.css',
          'public/css/lists.css',
          'public/css/loader.css',
+          'public/css/graphnav.css',
          'public/css/headline.css',
          'public/css/nav.css',
          'public/css/details.css',

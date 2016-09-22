@@ -1,6 +1,7 @@
 html {
     box-sizing: border-box;
     background: #eaecfa;
+    background: #fff!important;
 }
 *,
 *:before,
@@ -8,10 +9,15 @@ html {
     box-sizing: inherit;
 }
 body {
-    font-family: sans-serif;
+    color: #3c4859;
+    font-family: 'Gotham', sans-serif;
+    font-size: 14px;
+    height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
     padding: 0;
     margin: 0;
-    background: #eaecfa!important;
+    background: #fff!important;
 }
 .hide-elm {
     display: none;

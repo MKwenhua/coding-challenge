@@ -30,3 +30,21 @@
     color: #fff!important;
     background: #00d8ff border: 1px solid #00d8ff;
 }
+.section-opts {
+    text-align: center;
+    box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
+}
+.opts-span {
+    cursor: pointer;
+    color: #9facbd;
+    font-weight: 600;
+    line-height: 40px;
+    margin: 0 15px;
+}
+.opts-span:hover {
+    color: #3c4859;
+}
+.opt-on {
+    color: #0FACF3!important;
+    border-bottom: 1px solid #0FACF3;
+}

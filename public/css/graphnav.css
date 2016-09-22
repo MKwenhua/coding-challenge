@@ -1,0 +1,23 @@
+ul.metricsList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+ul.metricsList li {
+    display: inline-block;
+    border: 1px solid #333;
+    font-size: 13px;
+    padding: 0 8px;
+    cursor: pointer;
+    margin-right: -1px;
+}
+.metric {
+    color: #fff;
+    background-color: #333333;
+}
+.m-select {
+    background: #fff;
+    color: #333333;
+}

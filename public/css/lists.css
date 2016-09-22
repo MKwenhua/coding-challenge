@@ -1,3 +1,12 @@
+.list-box {
+    background: #1F2D3D;
+    opacity: .9;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+}
 ul.nice-list {
     list-style: none;
     padding: 0;
