@@ -27,3 +27,21 @@
     background-color: aqua;
     color: #777;
 }
+.more-info {
+    margin: 6px;
+    cursor: pointer;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+    margin-bottom: 10px;
+}
+.more-info:hover {
+    color: #20A4F3;
+}
+.block-button {
+    padding: 10px;
+    text-align: center;
+}
+.block-button > div {
+    display: inline-block;
+}

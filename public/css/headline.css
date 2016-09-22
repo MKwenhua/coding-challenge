@@ -1,10 +1,22 @@
-.top-headline{
-	padding:6px 0px;
-	font-size: 20px;
-	color: #ce4233;
-	border-bottom: 1px solid #3143CD;
-	margin-bottom: 2px; 
+.top-headline {
+    padding: 6px 0px;
+    font-size: 20px;
+    color: #ce4233;
+    margin-bottom: 2px;
 }
-.fw-header{
-	line-height: 40px;
+.fw-header {
+    line-height: 40px;
+}
+.p-heading {
+    color: #00ab6b;
+    margin: 6px;
+    font-weight: 500;
+}
+.yellow-star {
+    color: yellow;
+    -webkit-text-stroke: 1px black;
+    text-shadow: 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000;
+}
+.fw-head {
+	
 }

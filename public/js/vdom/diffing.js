@@ -38,10 +38,11 @@ module.exports = (self, createElem) => {
    }
 
    function updateElement(parent, newNode, oldNode, index = 0) {
-      if (typeof newNode === 'string') {
+      if (typeof newNode === 'string' || typeof newNode === "number") {
+         let vdomid = parent.props.trace + '.' + index;
          if (changed(newNode, oldNode)) {
             parent.domElement.replaceChild(
-               document.createTextNode(newNode),
+               createElem(newNode, vdomid, parent.trace),
                parent.domElement.childNodes[index]
             );
          }
@@ -50,7 +51,7 @@ module.exports = (self, createElem) => {
       }
       if (!oldNode) {
          let vdomid = parent.props.trace + '.' + index;
-         newNode.domElement = createElem(newNode, vdomid, parent.props.trace);
+         newNode.domElement = createElem(newNode, vdomid, parent.trace);
          parent.domElement.appendChild(
             newNode.domElement
          );
@@ -60,6 +61,7 @@ module.exports = (self, createElem) => {
          parent.domElement.removeChild(
             parent.childNodes[index]
          );
+         return
       }
       if (changed(newNode, oldNode)) {
          newNode.domElement = createElem(newNode, newNode.trace, newNode.parent);
@@ -69,17 +71,32 @@ module.exports = (self, createElem) => {
          );
       }
       if (newNode.type) {
-         newNode.domElement = oldNode.domElement;
+
+         newNode.domElement = oldNode.domElement ? oldNode.domElement : createElem(newNode, newNode.trace, newNode.parent);
          updateProps(
-            oldNode.domElement,
+            newNode.domElement,
             newNode.props,
             oldNode.props
          );
-         const newLength = newNode.nested.length;
+         const newLength = newNode.nested ? newNode.nested.length : 0;
+         if (typeof oldNode === 'string' || typeof oldNode === 'number') {
+            for (let i = 0; i < newLength; i++) {
+               updateElement(
+                  newNode,
+                  newNode.nested[i],
+                  null,
+                  i
+               );
+            }
+            return
+         }
+         oldNode.nested = oldNode.nested ? oldNode.nested : [];
          const oldLength = oldNode.nested.length;
+
+         // console.log('parent', {parent: parent, newNode: newNode, oldNode: oldNode});
          for (let i = 0; i < newLength || i < oldLength; i++) {
             updateElement(
-               parent.nested[index],
+               newNode,
                newNode.nested[i],
                oldNode.nested[i],
                i

@@ -14,11 +14,13 @@ var stripCssComments = require('gulp-strip-css-comments');
 
 gulp.task('css', function () {
    return gulp.src([
-         'node_modules/bootstrap-grid/dist/grid.min.css',
+         'node_modules/bootstrap/dist/css/bootstrap.min.css',
          'public/css/body.css',
          'public/css/lists.css',
          'public/css/loader.css',
          'public/css/headline.css',
+         'public/css/nav.css',
+         'public/css/details.css',
          'public/css/buttons.css'
       ])
       .pipe(stripCssComments())

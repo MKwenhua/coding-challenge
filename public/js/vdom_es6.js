@@ -6,6 +6,7 @@ const smoothNested = handyHelpers.smoothArray();
 function NodeMap(appTitle = 'default') {
    this.appTitle = appTitle;
    this.domComponents = {};
+   this.rootComponent = null;
    this.appRootDom = {
       domElement: null,
       nested: []
@@ -129,7 +130,7 @@ function NodeMap(appTitle = 'default') {
    };
    const createElem = (node, group, parent) => {
 
-      if (typeof node === 'string' || typeof node !== "object") {
+      if (typeof node === 'string' || typeof node === 'number' || (typeof node !== "object" && node !== null && node !== undefined)) {
          return document.createTextNode(node);
       }
       node.props = Object.assign({}, node.props, {
@@ -145,6 +146,9 @@ function NodeMap(appTitle = 'default') {
       const el = document.createElement(node.type, node.props);
       node.domElement = el;
       node.nested = node.nested ? node.nested : [];
+      if (node.nested.length === 0) {
+         return el;
+      }
       node.nested
          .map((elm, ii) => {
             let elmId = group + '.' + ii;
@@ -156,7 +160,7 @@ function NodeMap(appTitle = 'default') {
 
 
    const reRenderElem = (node, group, parent) => {
-      if (typeof node === 'string' || typeof node !== "object") {
+      if (typeof node === 'string' || typeof node === 'number' || (typeof node !== "object" && node !== null && node !== undefined)) {
          return node;
       }
 
@@ -184,6 +188,9 @@ function NodeMap(appTitle = 'default') {
       this.diffElements(this.appRootDom, newNode, oldNode);
       this.domComponents = newNode;
    }
+   this.SetState = (data) => {
+      console.log('not yet set');
+   }
 
 
 };
@@ -203,7 +210,7 @@ NodeMap.prototype.component = (obj) => {
 };
 
 
-NodeMap.prototype.node = (type, props={}, [...nested]=[]) => {
+NodeMap.prototype.node = (type, props = {}, [...nested] = []) => {
    nested = smoothNested(nested);
    return {
       type,
