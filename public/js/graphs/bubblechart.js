@@ -1,4 +1,4 @@
-const CanvasJS = require('../vendor/canvasjs.min.js');
+//const CanvasJS = require('../vendor/canvasjs.min.js');
 
 module.exports = () => {
    return (data) => {
@@ -103,5 +103,4 @@ module.exports = () => {
       chart.render();
 
    }
-}
 }

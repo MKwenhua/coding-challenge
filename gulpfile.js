@@ -32,7 +32,15 @@ gulp.task('css', function () {
 
 
 
+gulp.task('scripts', function () {
+   return gulp.src([
+         'public/js//vendor/canvasjs.min.js',
+         'public/dist/bundle.js'
+      ])
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('public/dist'));
+});
 gulp.task('default', function (done) {
-      sync( 'css' ,done); 
+      sync( 'css', 'scripts' ,done); 
 
 });
