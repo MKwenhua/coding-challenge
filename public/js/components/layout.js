@@ -3,6 +3,7 @@ const AppState = require("../data.js");
 const FWlist = require("./fwlist.js");
 const Graph = require("./graph.js");
 const Details = require("./details.js");
+const Trends   = require("./trends.js");
 
 let displaySwitch = (place) => {
   return () => {
@@ -44,7 +45,7 @@ const Layout = {
              <span  onClick={displaySwitch("graph")} class={compDisplay === "graph" ? "opts-span opt-on" : "opts-span"}>
                Performance
             </span>
-            <span class={compDisplay === "trends" ? "opts-span opt-on" : "opts-span"}>
+            <span onClick={displaySwitch("trends")} class={compDisplay === "trends" ? "opts-span opt-on" : "opts-span"}>
                Trends
             </span>
           </div>
@@ -58,6 +59,9 @@ const Layout = {
           </div>
           <div class={ compDisplay === "graph" ? "ok" : "hide-elm"}>
             <Graph ex_metrics={graph.metrics}  ex_data={graph} />
+          </div>
+          <div class={compDisplay === "trends" ? "ok" : "hide-elm"}>
+            <Trends />
           </div>
 
       </div>

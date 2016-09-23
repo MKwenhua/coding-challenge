@@ -31,3 +31,8 @@ body {
 .margin-t{
         margin-top: 30px;
 }
+
+.paddy{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
