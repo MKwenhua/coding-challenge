@@ -77,7 +77,7 @@ module.exports = (self, createElem, createElemSingle) => {
           oldNode.props
         );
       }
-
+      return
     }
     if (newNode.type) {
 
