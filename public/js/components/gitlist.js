@@ -2,45 +2,45 @@ const EX = require("../vdom_es6");
 const moment = require('moment');
 
 let detailsClick = (framework, data, appdata) => {
-   return () => {
-      let payLoad = Object.assign({}, appdata, {
-         compDisplay: "details",
-         details: {
-            onview: framework,
-            data: data
-         }
-      });
-      EX.SetState(payLoad);
-   }
+  return () => {
+    let payLoad = Object.assign({}, appdata, {
+      compDisplay: "details",
+      details: {
+        onview: framework,
+        data: data
+      }
+    });
+    EX.SetState(payLoad);
+  }
 };
 
 const GitRepo = EX.component({
-   componentName: 'list2',
-   state: {
+  componentName: 'list2',
+  state: {
 
-   },
-   componentRender: (props) => {
-      let {
-         ex_framework,
-         ex_data,
-         ex_app,
-         ex_stars
-      } = props;
-      let show = ex_app.activefw === ex_framework;
+  },
+  componentRender: (props) => {
+    let {
+      ex_framework,
+      ex_data,
+      ex_app,
+      ex_stars
+    } = props;
+    let show = ex_app.activefw === ex_framework;
 
-      let g = ex_data.general;
-      let theFunc = () => {
-         let change = ex_app.activefw === ex_framework ? "none" : ex_framework;
-         let payLoad = Object.assign({}, ex_app, {
-            activefw: change
-         });
-         EX.SetState(payLoad);
-      };
+    let g = ex_data.general;
+    let theFunc = () => {
+      let change = ex_app.activefw === ex_framework ? "none" : ex_framework;
+      let payLoad = Object.assign({}, ex_app, {
+        activefw: change
+      });
+      EX.SetState(payLoad);
+    };
 
-      let getDetails = detailsClick(ex_framework, ex_data, ex_app);
+    let getDetails = detailsClick(ex_framework, ex_data, ex_app);
 
-      return (
-         <li class="yikes"  >
+    return (
+      <li class="li-scale" style={props.ex_ani} > 
     <div class="info-block" onClick={theFunc}>
       <img class="li-img" src={g.owner.avatar_url}   />
       <strong class="fw-header" >{ex_framework}</strong>
@@ -63,7 +63,7 @@ const GitRepo = EX.component({
     </div>
     </li>
 
-      )
-   }
+    )
+  }
 });
 module.exports = GitRepo;

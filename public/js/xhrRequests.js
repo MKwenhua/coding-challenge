@@ -1,4 +1,5 @@
-module.exports = (callBack) => {
+module.exports = (callBack, csrf) => {
+   console.log('csrf', csrf)
    if (true) {
       function getRepoData(url, framework, infoType) {
          return new Promise((resolve, reject) => {
@@ -61,7 +62,7 @@ module.exports = (callBack) => {
             Inferno: {},
             Ember: {}
          });
-         // console.log('responseAholic',responseAholic);
+    
          callBack(responseAholic);
          localStorage.setItem("githubdata", JSON.stringify(responseAholic));
 

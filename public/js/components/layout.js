@@ -6,35 +6,37 @@ const Details = require("./details.js");
 
 let displaySwitch = (place) => {
   return () => {
-    EX.SetState({
+   EX.SetState({
       compDisplay: place
-    });
+   });
   }
 };
 const Layout = {
-  state: AppState,
-  githubHook: (res) => {
-    console.log('responseAholic', res);
-    EX.SetState({
-      data: res,
-      loaded: true,
-      frameworks: ['React', 'Angular', 'Vue', 'Inferno', 'Ember']
-    });
+   state: AppState,
+   githubHook: (res) => {
+      console.log('成龍大哥');
+      console.log('responseAholic', res);
+      EX.SetState({
+         data: res,
+         loaded: true,
+         frameworks: ['React', 'Angular', 'Vue', 'Inferno', 'Ember']
+      });
 
-  },
-  render: () => {
-    let {
-      frameworks,
-      data,
-      loaded,
-      activefw,
-      details,
-      graph,
-      compDisplay
-    } = Layout.state;
-
-    return (
-      <div>
+   },
+   render: () => {
+      let {
+         frameworks,
+         data,
+         loaded,
+         activefw,
+         details,
+         graph,
+         compDisplay
+      } = Layout.state;
+ 
+ 
+      return (
+         <div>
           <div class={ loaded ?  "section-opts" : "hide-elm" }>
             <span onClick={displaySwitch("list")} class={(compDisplay === "list" || compDisplay === "details" )? "opts-span opt-on" : "opts-span"}>
             List
@@ -54,21 +56,23 @@ const Layout = {
           <div class={ compDisplay === "details" ? "fadeinto" : "hide-elm"}>
             <Details ex_data={details.data}  ex_framework={details.onview} />
           </div>
-          <div class={ compDisplay === "graph" ? "fadeinto" : "hide-elm"}>
+          <div class={ compDisplay === "graph" ? "ok" : "hide-elm"}>
             <Graph ex_metrics={graph.metrics}  ex_data={graph} />
           </div>
 
       </div>
-    )
-  }
+      )
+   }
 };
 EX.rootComponent = Layout;
 EX.SetState = (() => {
-  return (payload) => {
-    Layout.state = Object.assign({}, Layout.state, payload);
-    EX.objectChange(Layout.render());
-    console.log(Layout.state);
-  }
+   return (payload) => {
+      Layout.state = Object.assign({}, Layout.state, payload);
+      EX.objectChange(Layout.render());
+      console.log(Layout.state);
+   }
 })();
+
+
 
 module.exports = Layout;

@@ -11,7 +11,9 @@ const sysInfo      = require('./utils/sys-info');
 const env          = process.env;
 const socketio     = require('socket.io');
 const redis        = require('redis'); 
-
+const Tokens       = require('csrf')
+const tokens       = new Tokens();
+global.Promise     = require("bluebird");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
@@ -30,9 +32,12 @@ app.set('views', __dirname + '/public');
 
 
 app.get('/', (req, res) => {
+ tokens.secret().then( (secret) => {
   res.render('index', {
-    hey: "Projects"
+    csrf: secret
   });
+})
+
 });
 
 app.get('/parse', (req, res) => {
@@ -52,6 +57,17 @@ app.get(/\/info\/(gen|poll)/, (req,res) => {
 
 app.get('/', (req,res) => {
   res.render('start');
+});
+
+app.get('/authstuff/:crsf', (req, res) => {
+  if (tokens.verify(req.param.crsf, tokens)) {
+  res.writeHead(200);
+ res.send(JSON.stringy({clientId: process.env.CLIENT_ID,
+secret: process.env.GIT_PW}));
+ res.end();
+}else{
+
+}
 });
 
 

@@ -13,6 +13,7 @@ const AppState = {
    activefw: "none",
    graph: {
       type: "bar",
+      metricsOn: [1,2],
       metrics:[
       {m:"create rows",m2:"create rows",  on: false},
       {m: "replace all rows", m2: "replace all",on: true},

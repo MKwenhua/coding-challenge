@@ -22,18 +22,21 @@
     ]
   },
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "bootstrap-grid": "^2.0.1",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.4.2",
     "browserify": "^13.1.0",
+    "cookie-parser": "^1.4.3",
+    "csrf": "^3.0.3",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
     "jsx-transform": "^2.3.0",
     "moment": "^2.15.1",
-    "express": "^4.14.0",
     "redis": "^2.6.2",
     "socket.io": "^1.4.8",
     "socket.io-redis": "^1.0.0",
+    "sort-by": "^1.1.1",
     "webpack": "^1.13.1"
   },
   "devDependencies": {

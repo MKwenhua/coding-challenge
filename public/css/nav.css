@@ -1,14 +1,17 @@
-.list-by {
-    height: 20px;
+.list-by-w {
     text-align: center;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
+    width: 100%;
+}
+.list-by-w div {
+    font-weight: 700;
 }
 .list-by div {
     display: inline-block;
     border-radius: 4px;
     margin-right: 5px;
     cursor: pointer;
-    margin-left: 5px;
+    font-weight: 700;
 }
 .sort-by {
     background: #fff;
@@ -22,10 +25,6 @@
     -moz-transition: all 0.15s ease-out 0s;
     transition: all 0.15s ease-out 0s;
 }
-.sort-by:hover {
-    color: #00d8ff;
-    border-color: #00d8ff;
-}
 .selected {
     color: #fff!important;
     background: #00d8ff border: 1px solid #00d8ff;
@@ -33,6 +32,12 @@
 .section-opts {
     text-align: center;
     box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .opts-span {
     cursor: pointer;

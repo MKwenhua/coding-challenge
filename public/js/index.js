@@ -7,7 +7,4 @@ EX.createComponent(
    Layout.render(), document.getElementById('container'));
 
 
-EX.viewObjects();
-
-
-theXHRstuff(Layout.githubHook);
+theXHRstuff(Layout.githubHook, document.getElementById("theCSRF").getAttribute('value'));
