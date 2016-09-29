@@ -4,7 +4,13 @@ const FWlist = require("./fwlist.js");
 const Graph = require("./graph.js");
 const Details = require("./details.js");
 const Trends   = require("./trends.js");
-
+const AChart   = require("./achart.js");
+const histData = require("../historicalEvents.js");
+histData((allData, reducedData) => {
+  console.log('framework events history', allData);
+  console.log('framework events history reduced', reducedData);
+  EX.SetState({histData: allData, eventsData: reducedData});
+})
 let displaySwitch = (place) => {
   return () => {
    EX.SetState({
@@ -25,7 +31,7 @@ const Layout = {
 
    },
    render: () => {
-      let {
+      let { 
          frameworks,
          data,
          loaded,
@@ -35,7 +41,7 @@ const Layout = {
          compDisplay
       } = Layout.state;
  
- 
+      
       return (
          <div>
           <div class={ loaded ?  "section-opts" : "hide-elm" }>
@@ -45,25 +51,29 @@ const Layout = {
              <span  onClick={displaySwitch("graph")} class={compDisplay === "graph" ? "opts-span opt-on" : "opts-span"}>
                Performance
             </span>
+             <span onClick={displaySwitch("achart")} class={compDisplay === "achart" ? "opts-span opt-on" : "opts-span"}>
+               Compare Events
+            </span>
             <span onClick={displaySwitch("trends")} class={compDisplay === "trends" ? "opts-span opt-on" : "opts-span"}>
                Trends
             </span>
           </div>
         <div class={ loaded ? "hide-elm" : "loader" }>Getting Data...</div>
          <div class={ (loaded &&  compDisplay === "list" ) ? "ok" : "hide-elm"}>
-
-          <FWlist ex_data={data} ex_app={Layout.state} ex_loaded={loaded} />
+            <FWlist ex_data={data} ex_app={Layout.state} ex_loaded={loaded} />
           </div>
           <div class={ compDisplay === "details" ? "fadeinto" : "hide-elm"}>
-            <Details ex_data={details.data}  ex_framework={details.onview} />
+             <Details ex_data={details.data} ex_app={Layout.state}  ex_framework={details.onview} />
           </div>
           <div class={ compDisplay === "graph" ? "ok" : "hide-elm"}>
             <Graph ex_metrics={graph.metrics}  ex_data={graph} />
           </div>
-          <div class={compDisplay === "trends" ? "ok" : "hide-elm"}>
-            <Trends />
+           <div class={compDisplay === "achart" ? "ok" : "hide-elm"}>
+             <AChart  ex_app={Layout.state} />
+           </div>
+           <div class={compDisplay === "trends" ? "ok" : "hide-elm"}>
+              <Trends />
           </div>
-
       </div>
       )
    }

@@ -1,6 +1,18 @@
 .details-img {
     max-width: 100%;
 }
+.donut-chart{
+    min-height: 200px; 
+}
+.donut-chart a {
+    display: none;
+}
+.donut-chart canvas {
+    display: inline-block;
+}
+.aaa{
+    height: 150px;
+}
 table * {
     text-align: center;
 }
@@ -15,6 +27,9 @@ td.bold-red {
 td.bold-black {
     font-weight: 700;
     color: #00d8ff;
+}
+td{
+    padding: 2px;
 }
 div.fadeinto {
     -webkit-animation: fadein 0.5s;

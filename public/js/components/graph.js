@@ -10,7 +10,7 @@ const addMetric = (num, compData) => {
     let ok = mOn.filter((v) => v !== num)
     if (ok.length === mOnln || ok.length === 0) {
       ok.push(num);
-    }
+    } 
 
     if (ok.length > 3) {
       ok.shift();
@@ -19,13 +19,13 @@ const addMetric = (num, compData) => {
     let newData = Object.assign({}, compData, {
       metricsOn: ok
     });
-    //compData.metricsOn = ok
+
     EX.SetState({
       graph: newData
     });
 
   }
-}
+} 
 const makeList = (metrics, graphData) => {
   let mt = graphData.metricsOn
   return metrics.map((met, i) => {
@@ -50,7 +50,7 @@ let graphCallBack = (mList, metrics, gType) => {
   let graphInfo = GraphOptions[gType](mapMetrics(mList, metrics));
   console.log('graphInfo', graphInfo);
   return () => {
-    GraphINTERFACE[gType](graphInfo);
+    GraphINTERFACE[gType](graphInfo, "chartContainer");
   }
 }
 const Graph = EX.component({
